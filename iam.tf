@@ -1,5 +1,5 @@
 resource "aws_iam_policy" "LambdaExecutionRole_access" {
-  name   = "${var.environment}-LambdaExecutionRole-access"
+  name   = "${var.name}-${var.environment}-LambdaExecutionRole-access"
   path   = "/"
   policy = <<EOF
 {
@@ -44,13 +44,13 @@ EOF
 }
 
 resource "aws_iam_policy_attachment" "LambdaExecutionRole_attachment" {
-  name  = "${var.environment}-LambdaExecutionRole-attachment"
+  name  = "${var.name}-${var.environment}-LambdaExecutionRole-attachment"
   roles = ["${aws_iam_role.LambdaExecutionRole.name}"]
   policy_arn = "arn:aws:iam::aws:policy/service-role/AutoScalingNotificationAccessRole"
 }
 
 resource "aws_iam_policy_attachment" "LambdaExecutionRole_attachment_action" {
-  name  = "${var.environment}-LambdaExecutionRole-attachment-action"
+  name  = "${var.name}-${var.environment}-LambdaExecutionRole-attachment-action"
   roles = ["${aws_iam_role.LambdaExecutionRole.name}"]
   policy_arn = "${aws_iam_policy.LambdaExecutionRole_access.arn}"
 }
