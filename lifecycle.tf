@@ -1,5 +1,5 @@
-resource "aws_autoscaling_lifecycle_hook" "lifecycle" {
-  name                    = "${var.environment}-${var.name}-lifecycle"
+resource "aws_autoscaling_lifecycle_hook" "ecs_graceful" {
+  name                    = "${var.environment}-${var.name}-ecs-graceful"
   autoscaling_group_name  = "${var.autoscaling_group_name}"
   default_result          = "ABANDON"
   heartbeat_timeout       = 900
