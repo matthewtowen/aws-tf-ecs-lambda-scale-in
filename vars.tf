@@ -12,3 +12,8 @@ variable "environment" {
   description = "Environment tag, e.g prod"
   default = ""
 }
+
+variable "autoscaling_group_name" {
+  description = "autoscaling group name"
+  default = ""
+}

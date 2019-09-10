@@ -55,5 +55,27 @@ resource "aws_iam_policy_attachment" "LambdaExecutionRole_attachment_action" {
   policy_arn = "${aws_iam_policy.LambdaExecutionRole_access.arn}"
 }
 
+resource "aws_iam_role" "lifecycle_sns" {
+  name = "${var.name}-${var.environment}-lifecycle_sns"
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "autoscaling.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+EOF
+}
 
+resource "aws_iam_policy_attachment" "lifecycle_sns_action" {
+  name  = "${var.name}-${var.environment}-lifecycle-sns-action"
+  roles = ["${aws_iam_role.lifecycle_sns.name}"]
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AutoScalingNotificationAccessRole"
+}
 
