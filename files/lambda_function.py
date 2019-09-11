@@ -2,8 +2,8 @@ import json
 import time
 import boto3
 
-CLUSTER = environ['cluster']
-REGION = environ['region']
+CLUSTER = os.environ['cluster']
+REGION = os.environ['region']
 
 ECS = boto3.client('ecs', region_name=REGION)
 ASG = boto3.client('autoscaling', region_name=REGION)
