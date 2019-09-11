@@ -10,6 +10,14 @@ resource "aws_lambda_function" "lambda_function" {
   function_name    = "${var.name}-${var.environment}-ecs-graceful"
   handler          = "lambda_function.lambda_handler"
   role             = "${aws_iam_role.lambda_graceful_ecs_func_role.arn}"
+
+  environment {
+    variables = {
+      cluster = "${var.name}-${var.environment}-cluster"
+      region ="${var.AWS_REGION}"
+    }
+   }
+
   }
 
 resource "aws_lambda_permission" "with_sns" {

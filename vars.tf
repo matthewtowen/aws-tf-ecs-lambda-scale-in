@@ -17,3 +17,8 @@ variable "autoscaling_group_name" {
   description = "autoscaling group name"
   default = ""
 }
+
+variable "AWS_REGION" {
+  description = "autoscaling group name"
+  default = "eu-west-2"
+}
