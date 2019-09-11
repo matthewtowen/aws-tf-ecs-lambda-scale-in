@@ -1,11 +1,11 @@
-data "archive_file" "lambda_function" {
+data "archive_file" "lambda_zip" {
   type        = "zip"
   source_file = "${path.module}/files/${var.file_name}"
   output_path = "${path.module}/files/${var.file_name}.zip"
 }
 resource "aws_lambda_function" "lambda_function" {
   runtime          = "python3.6"
-  source_code_hash = data.archive_file.lambda_function.output_base64sha256
+  source_code_hash = "${data.archive_file.lambda_zip.output_base64sha256}"
   filename         = "${path.module}/files/${var.file_name}.zip"
   function_name    = "${var.name}-${var.environment}-ecs-graceful"
   handler          = "lambda_function.lambda_handler"
